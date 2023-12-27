@@ -1,0 +1,92 @@
+.story{
+    width: 75%;
+    margin: 0 auto;
+    box-shadow: 0 3rem 6rem rgba($color-black, .1);
+    background-color: rgba($color-white, .6);
+    border-radius: 3px;
+    padding: 5.5rem !important;
+    padding-left: 9rem;
+    font-size: $default-font-size;
+    transform: skewX(-12deg);
+    position: relative;
+    margin: 7rem;
+
+    @include respond(tab-port) {
+        width: 100%;
+        padding: 4rem;
+        padding-left: 7rem;
+    }
+
+    @include respond(phone) {
+        transform: skewX(0);
+    }
+
+
+    &__shape{
+        width: 15rem;
+        height: 15rem;
+        float: left;//in other for the shape outside property to be effected,  the element bearint the property must have a float
+        background-color: $color-secondary-light;
+        transform: translateX(-3rem) skewX(12deg);//the skew property here is to reverse the skew property acting on  the entire section
+
+        @supports(-webkit-clip-path: 0 0) or (clip-path: 0 0) or (-webkit-clip-path: polygon(0 0)) {
+            .__shape{
+                -webkit-shape-outside: circle(50% at 50% 50%);
+                shape-outside: circle(50% at 50% 50%);//this property shapes the element that wrap around tha element bearing this property;
+                -webkit-clip-path: circle(50% at 50% 50%);
+                clip-path: circle(50% at 50% 50%);
+        
+            }
+        }
+      
+        @include respond(phone) {
+            transform: translateX(-3rem) skewX(0);
+        }
+
+
+    }
+
+    &__img{
+        backface-visibility: hidden;
+        height: 100%;
+        transform: translateX(-4rem) scale(1.4);
+        transition: all .5s;
+    }
+
+    &__text{
+        transform: skewX(12deg);
+        backface-visibility: hidden;
+
+        
+        @include respond(phone) {
+            transform: skewX(0);
+        }
+
+    }
+
+   
+    &__caption{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color:$color-white;
+        text-transform: uppercase;
+        font-size: 1.7rem;
+        text-align: center;
+        opacity: 0;  
+        transition: all .5s;
+    }
+
+    &:hover &__caption{
+        opacity: 1;
+        backface-visibility: hidden;//when you notice a wierdmovement or action in your animations or transitions, most times the fix is backface visibility
+        transform: translate(-50%, -50%);
+    }
+
+    &:hover &__img{
+        transform: translateX(-4rem) scale(1);
+        filter: blur(5px) brightness(80%);
+        backface-visibility: hidden;
+    }
+}
